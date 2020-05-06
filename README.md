@@ -19,7 +19,7 @@ Solr for Digital Collections
 ### Starting the app
 - Start the solr service
   ``` bash
-  docker-compose up solr
+  docker-compose up
   ```
 
   - Access the solr instance at `http://localhost:8983`
