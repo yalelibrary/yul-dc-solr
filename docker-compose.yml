@@ -1,16 +1,12 @@
 version: '2.1'
 services:
   solr:
-    image: yalelibraryit/dc-solr:latest
+    image: yalelibraryit/dc-solr:${COMMIT}
     ports:
       - '8983:8983'
     volumes:
       - './solr/conf:/opt/config:delegated'
-      - solr_cores:/var/solr/data
     env_file:
       - .env
-    command: bash -c 'precreate-core blacklight-development /opt/config; precreate-core blacklight-test /opt/config; exec solr -f'
     build:
       context: .
-volumes:
-  solr_cores:
