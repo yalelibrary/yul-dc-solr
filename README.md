@@ -20,7 +20,7 @@ Solr for Digital Collections
   ```
 - If appropriate, push the tagged image to the Dockerhub repository
   ```bash
-  docker-compose push
+  TAG=$(git rev-parse --short HEAD) docker-compose push
   ```
 
 ### Starting the app
