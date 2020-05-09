@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   solr:
-    image: ${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-latest}
+    image: ${REGISTRY_HOST}${REGISTRY_URI}:${TAG}
     ports:
       - '8983:8983'
     volumes:
