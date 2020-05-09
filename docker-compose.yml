@@ -5,7 +5,7 @@ services:
     ports:
       - '8983:8983'
     volumes:
-      - './solr/conf:/opt/config:delegated'
+      - '/opt/config'
     env_file:
       - .env
     build:
