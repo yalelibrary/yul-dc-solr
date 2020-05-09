@@ -14,13 +14,17 @@ Solr for Digital Collections
 ### If this is your first time working in this repo or the Dockerfile has been updated you will need to (re)build your services
 
 - Push to the git repository
-- Set the environment variable for the tag to the git commit & build your image based on the docker-compose file
+- Set the environment variable for the tag to the git commit
+  ```bash
+  export TAG=$(git rev-parse --short HEAD)
+  ```
+& build your image based on the docker-compose file
   ``` bash
-  TAG=$(git rev-parse --short HEAD) docker-compose build
+  docker-compose build
   ```
 - If appropriate, push the tagged image to the Dockerhub repository
   ```bash
-  TAG=$(git rev-parse --short HEAD) docker-compose push
+  docker-compose push
   ```
 
 ### Starting the app
