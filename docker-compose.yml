@@ -8,6 +8,5 @@ services:
       - './solr/conf:/opt/config:delegated'
     env_file:
       - .env
-      - .env.development
     build:
       context: .
