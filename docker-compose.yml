@@ -1,17 +1,14 @@
 version: '2.1'
 services:
   solr:
-    image: solr:8
+    image: ${REGISTRY_HOST}${REGISTRY_URI}:${TAG}
     ports:
       - '8983:8983'
     volumes:
-      - './solr/conf:/opt/config:delegated'
-      - solr:/opt/solr/server/solr/mycores
-    # env_file:
-    #   - .env
+      - '/opt/config'
+    env_file:
+      - .env
     build:
       context: .
 
     command: bash -c 'precreate-core blacklight-development /opt/config; precreate-core blacklight-test /opt/config; exec solr -f'
-volumes:
-  solr:
