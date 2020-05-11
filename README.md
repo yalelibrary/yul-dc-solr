@@ -16,7 +16,7 @@ Solr for Digital Collections
 - Push to the git repository
 - Set the environment variable for the tag to the git commit
   ```bash
-  export TAG=$(git rev-parse --short HEAD)
+  export SOLR_TAG=$(git rev-parse --short HEAD)
   ```
 & build your image based on the docker-compose file
   ``` bash
@@ -39,4 +39,24 @@ Solr for Digital Collections
  - Stop the solr service
  ```bash
  docker-compose down
+ ```
+
+ ### Using the solr image in another application
+
+ Use the following fragment in the docker-compose.yml for the application.
+
+ Note, this will create two solr cores called `blacklight-test` and `blacklight-development`
+
+ ```
+ services:
+  solr:
+    image: yalelibraryit/dc-solr:${SOLR_TAG:-latest}
+    ports:
+      - '8983:8983'
+    volumes:
+      - solr:/opt/solr/server/solr/mycores
+    command: bash -c 'precreate-core blacklight-development /opt/config; precreate-core blacklight-test /opt/config; exec solr -f'
+
+volumes:
+  solr:
  ```
