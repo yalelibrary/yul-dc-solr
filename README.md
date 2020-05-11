@@ -53,6 +53,8 @@ Solr for Digital Collections
       - '8983:8983'
     volumes:
       - solr:/opt/solr/server/solr/mycores
+    env_file:
+      - .env
     command: bash -c 'precreate-core ${SOLR_CORE} /opt/config; precreate-core ${SOLR_TEST_CORE} /opt/config; exec solr -f'
 
 volumes:
