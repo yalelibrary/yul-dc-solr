@@ -45,8 +45,6 @@ Solr for Digital Collections
 
  Use the following fragment in the docker-compose.yml for the application.
 
- Note, this will create two solr cores called `blacklight-test` and `blacklight-development`
-
  ```
  services:
   solr:
@@ -55,8 +53,16 @@ Solr for Digital Collections
       - '8983:8983'
     volumes:
       - solr:/opt/solr/server/solr/mycores
-    command: bash -c 'precreate-core blacklight-development /opt/config; precreate-core blacklight-test /opt/config; exec solr -f'
+    command: bash -c 'precreate-core ${SOLR_CORE} /opt/config; precreate-core ${SOLR_TEST_CORE} /opt/config; exec solr -f'
 
 volumes:
   solr:
  ```
+
+Note, two environment variables are required. Add these to the `.env` file.
+
+``` 
+SOLR_TEST_CORE=blacklight-test
+SOLR_CORE=blacklight-development
+```
+
