@@ -35,6 +35,25 @@ Solr for Digital Collections
 
   - Access the solr instance at `http://localhost:8983`
 
+### Making a new release
+
+Build the image as noted, tag with new version.
+
+```
+docker tag <whatever image id> yalelibraryit/dc-solr:v1.0.1
+
+```
+Push newly tagged image to dockerhub
+
+```
+docker push yalelibraryit/dc-solr:v1.0.1
+```
+
+Tag the release in github, and update the .env in camerata.
+
+Since Solr is a stateful application, announce deployment in the
+appropriate channels, as deployment will require some down-time.
+
 ### Stopping the app
  - Stop the solr service
  ```bash
