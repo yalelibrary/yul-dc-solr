@@ -1,13 +1,78 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-# Use a package of configuration called an orb.
+commands:
+  docker-tag:
+    description: "Add a new tag to a docker image that has already been pulled"
+    parameters:
+      from_tag:
+        type: string
+        default: $CIRCLE_SHA1
+      to_tag:
+        type: string
+        default: "master"
+      image:
+        type: string
+    steps:
+      - run: >
+          docker tag <<parameters.image>>:<<parameters.from_tag>> <<parameters.image>>:<<parameters.to_tag>>
+
+jobs:
+  build-and-push:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build:
+          image: yalelibraryit/dc-solr
+          cache_from: yalelibraryit/dc-solr:master
+      - docker/push:
+          image: yalelibraryit/dc-solr
+
+  publish-latest:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - docker/check
+      - docker/pull:
+          images: yalelibraryit/dc-solr:$CIRCLE_SHA1
+      - docker-tag:
+          image: yalelibraryit/dc-solr
+          from_tag: $CIRCLE_SHA1
+          to_tag: $CIRCLE_BRANCH
+      - docker/push:
+          image: yalelibraryit/dc-solr
+          tag: $CIRCLE_BRANCH
+  publish-github-release:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - docker/check
+      - docker/pull:
+          images: yalelibraryit/dc-solr:$CIRCLE_SHA1
+      - docker-tag:
+          image: yalelibraryit/dc-solr
+          from_tag: $CIRCLE_SHA1
+          to_tag: $CIRCLE_TAG
+      - docker/push:
+          image: yalelibraryit/dc-solr
+          tag: $CIRCLE_TAG
+
+
 orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
+  docker: circleci/docker@1.0.1
+version: 2.1
 workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
+  commit:
     jobs:
-      - welcome/run
+      - build-and-push:
+          context: yul-dc
+      - publish-latest:
+          context: yul-dc
+          requires:
+            - build-and-push
+      - publish-github-release:
+          context: yul-dc
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
