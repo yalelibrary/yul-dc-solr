@@ -6,25 +6,9 @@ Solr for Digital Collections
 
 
 # Docker Development Setup
-### If this is your first time working in this repo, build the base service (dependencies, etc. that don't change)
+### Building locally in development
   ``` bash
   docker-compose build
-  ```
-
-### If this is your first time working in this repo or the Dockerfile has been updated you will need to (re)build your services
-
-- Push to the git repository
-- Set the environment variable for the tag to the git commit
-  ```bash
-  export SOLR_TAG=$(git rev-parse --short HEAD)
-  ```
-& build your image based on the docker-compose file
-  ``` bash
-  docker-compose build
-  ```
-- If appropriate, push the tagged image to the Dockerhub repository
-  ```bash
-  docker-compose push
   ```
 
 ### Starting the app
@@ -37,22 +21,20 @@ Solr for Digital Collections
 
 ### Making a new release
 
-Build the image as noted, tag with new version.
+1. Decide on a new version number. We use [semantic versioning](https://semver.org/).
+1. Look through all merged PRs since the last release and write release notes as
+a list of Features, Bug Fixes, and Other.
+1. Once CI has finished and passed on the most recent merge to the default branch,
+in the github web UI go to "Releases" and tag a new release with the version number
+you chose; release tags that match the pattern `v10.2.3` (the letter v followed by
+three numbers separated by dots) will be automatically built and tagged.
+1. Once the publish-github-release job has finished in circleci, update `yul-dc-camerata`
+with the new version of the solr image; submit a PR.
 
-```
-docker tag <whatever image id> yalelibraryit/dc-solr:v1.0.1
-
-```
-Push newly tagged image to dockerhub
-
-```
-docker push yalelibraryit/dc-solr:v1.0.1
-```
-
-Tag the release in github, and update the .env in camerata.
-
+### Deployment
 Since Solr is a stateful application, announce deployment in the
-appropriate channels, as deployment will require some down-time.
+appropriate channels, as deployment will require some down-time, including
+restarting the blacklight and management apps.
 
 ### Stopping the app
  - Stop the solr service
@@ -82,8 +64,7 @@ volumes:
 
 Note, two environment variables are required. Add these to the `.env` file.
 
-``` 
+```
 SOLR_TEST_CORE=blacklight-test
 SOLR_CORE=blacklight-development
 ```
-
