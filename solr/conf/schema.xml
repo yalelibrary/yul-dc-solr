@@ -210,10 +210,14 @@
   <copyField source="*_ssim" dest="all_text_timv" maxChars="3000"/>
   <copyField source="*_si" dest="all_text_timv" maxChars="3000"/>
 
-  <copyField source="*_tsim" dest="suggest"/>
+<!-- The below are the Blacklight defaults for the suggest field. Trying to limit fileds added
+      to get more relevant results -->
+  <!-- <copyField source="*_tsim" dest="suggest"/>
   <copyField source="*_tesim" dest="suggest"/>
   <copyField source="*_ssim" dest="suggest"/>
-  <copyField source="*_si" dest="suggest"/>
+  <copyField source="*_si" dest="suggest"/> -->
+  <copyField source="title_tesim" dest="suggest" maxChars="1000"/>
+  <copyField source="creator_tesim" dest="suggest" maxChars="1000"/>
 
   <!-- TODO: Look into if these are actually being used. -->
   <copyField source="*_tsim" dest="spell"/>
@@ -361,6 +365,7 @@
           <tokenizer class="solr.KeywordTokenizerFactory"/>
           <filter class="solr.LowerCaseFilterFactory"/>
           <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.LengthFilterFactory" min="2" max="255"/>
        </analyzer>
     </fieldType>
 
