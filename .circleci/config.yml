@@ -26,7 +26,7 @@ jobs:
         type: env_var_name
       dynatrace-registry:
         default: DYNATRACE_REGISTRY
-        type: env_var_name
+        type: string
     steps:
       - setup_remote_docker
       - checkout
@@ -35,7 +35,7 @@ jobs:
           command: |
             echo "$<<parameters.dynatrace-token>>" \
               | docker login -u "$<<parameters.dynatrace-environment-id>>" \
-                  --password-stdin <<parameters.dynatrace-registry>>
+                  --password-stdin "$<<parameters.dynatrace-registry>>"
           name: Dynatrace Docker login
       - docker/build:
           image: yalelibraryit/dc-solr
