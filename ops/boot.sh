@@ -4,5 +4,3 @@ if [ ! -z "$DYNATRACE_TOKEN" ];then
 
   /bin/sh installer.sh --set-app-log-content-access=true --set-infra-only=true --set-host-group=DC --set-host-name=${CLUSTER_NAME}-solr 2>&1 & 
 fi
-
-su  postgres -c '/docker-entrypoint.sh postgres -c max_connections=500'
