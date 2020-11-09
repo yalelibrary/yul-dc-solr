@@ -1,16 +1,12 @@
 version: '2.1'
 services:
   solr:
-    command: /bin/bash -c '/boot.sh'
     image: ${REGISTRY_HOST}${REGISTRY_URI}:${SOLR_TAG:-latest}
     ports:
       - '8983:8983'
     volumes:
       - '/opt/config'
       - solr:/opt/solr/server/solr/mycores
-    environment:
-      DYNATRACE_TOKEN: ${DYNATRACE_TOKEN}
-      CLUSTER_NAME: ${CLUSTER_NAME}
     env_file:
       - .env
     build:
