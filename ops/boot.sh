@@ -4,5 +4,5 @@ if [ ! -z "$DYNATRACE_TOKEN" ];then
 
   /bin/sh installer.sh --set-app-log-content-access=true --set-infra-only=true --set-host-group=DC --set-host-name=${CLUSTER_NAME}-solr 2>&1 & 
 fi
-
-su solr -c 'cp -rn /opt/config/ /var/solr/data/$${SOLR_CORE}/conf && touch /var/solr/data/$${SOLR_CORE}/core.properties && exec solr -f'
+echo "hello"
+su solr -c 'cp -rn /opt/config/ /var/solr/data/${SOLR_CORE}/conf && touch /var/solr/data/${SOLR_CORE}/core.properties && exec solr -f'
