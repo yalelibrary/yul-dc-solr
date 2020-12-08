@@ -17,7 +17,6 @@ commands:
 jobs:
   build-and-push:
     executor: docker/docker
-    parameters:
     steps:
       - setup_remote_docker
       - checkout
