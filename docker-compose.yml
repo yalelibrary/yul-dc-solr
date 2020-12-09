@@ -4,10 +4,6 @@ services:
     image: ${REGISTRY_HOST}${REGISTRY_URI}:${SOLR_TAG:-latest}
     ports:
       - '8983:8983'
-    ulimits:
-      nofile:
-          soft: 65000
-          hard: 65000
     volumes:
       - '/opt/config'
       - solr:/opt/solr/server/solr/mycores
