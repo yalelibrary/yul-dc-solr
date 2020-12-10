@@ -189,9 +189,8 @@
     <dynamicField name="*_bbox" type="bbox" stored="true" indexed="true" />
 
 
-    <!-- suggest and spelling -->
+    <!-- spelling -->
     <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
-    <dynamicField name="*suggest" type="textSuggest" indexed="true" stored="false" multiValued="true" />
 
     <!-- you must define copyField source and dest fields explicity or schemaBrowser doesn't work -->
     <field name="all_text_timv" type="text" stored="false" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
@@ -210,14 +209,6 @@
   <copyField source="*_ssim" dest="all_text_timv" maxChars="3000"/>
   <copyField source="*_si" dest="all_text_timv" maxChars="3000"/>
 
-<!-- The below are the Blacklight defaults for the suggest field. Trying to limit fileds added
-      to get more relevant results -->
-  <!-- <copyField source="*_tsim" dest="suggest"/>
-  <copyField source="*_tesim" dest="suggest"/>
-  <copyField source="*_ssim" dest="suggest"/>
-  <copyField source="*_si" dest="suggest"/> -->
-  <copyField source="title_tesim" dest="suggest" maxChars="1000"/>
-  <copyField source="creator_tesim" dest="suggest" maxChars="1000"/>
 
   <!-- TODO: Look into if these are actually being used. -->
   <copyField source="*_tsim" dest="spell"/>
