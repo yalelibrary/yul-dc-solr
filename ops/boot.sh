@@ -9,5 +9,6 @@ if [ ! -z "${SOLR_CORE}" ];then
   touch /var/solr/data/${SOLR_CORE}/core.properties
   chown -R solr: /var/solr/data
 fi
-su solr -c 'docker-entrypoint.sh solr-foreground ulimit -n 65000'
+su solr 'ulimit -n 65000'
+su solr -c 'docker-entrypoint.sh solr-foreground'
 
