@@ -7,7 +7,7 @@ commands:
         default: $CIRCLE_SHA1
       to_tag:
         type: string
-        default: "master"
+        default: "main"
       image:
         type: string
     steps:
@@ -23,7 +23,7 @@ jobs:
       - docker/check
       - docker/build:
           image: yalelibraryit/dc-solr
-          cache_from: yalelibraryit/dc-solr:master
+          cache_from: yalelibraryit/dc-solr:main
       - docker/push:
           image: yalelibraryit/dc-solr
 
