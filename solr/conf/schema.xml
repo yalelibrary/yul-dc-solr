@@ -25,6 +25,7 @@
     <dynamicField name="*_tsm" type="text" stored="true" indexed="false" multiValued="true"/>
     <dynamicField name="*_tsi" type="text" stored="true" indexed="true" multiValued="false"/>
     <dynamicField name="*_tsim" type="text" stored="true" indexed="true" multiValued="true"/>
+    <dynamicField name="*_wstsim" type="text_ws" stored="true" indexed="true" multiValued="true"/>
 
     <dynamicField name="*_tiv" type="text" stored="false" indexed="true" multiValued="false" termVectors="true" termPositions="true" termOffsets="true"/>
     <dynamicField name="*_timv" type="text" stored="false" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
