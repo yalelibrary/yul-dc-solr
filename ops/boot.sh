@@ -4,6 +4,6 @@ if [ ! -z "${SOLR_CORE}" ];then
   touch /var/solr/data/${SOLR_CORE}/core.properties
   chown -R solr: /var/solr/data
 fi
-export SOLR_HEAP="${SOLR_HEAP:=12g}"
+export SOLR_HEAP="${SOLR_HEAP:=62g}"
 export SOLR_OPTS="-Dlog4j2.formatMsgNoLookups=true"
 ulimit -n 65000 && docker-entrypoint.sh solr-foreground
