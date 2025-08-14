@@ -1,36 +1,30 @@
 # yul-dc-solr
 Solr for Digital Collections
 
-# Prerequisites
+## Solr Instance
+Solr is run on an EC2 instance.  Manual configuration and file copying required for changing instances used in Test, Demo, UAT, and Production.  
+
+## Running Solr Locally
+
+### Prerequisites
 - Download [Docker Desktop](https://www.docker.com/products/docker-desktop) and log in
 
 
-# Docker Development Setup
-### If this is your first time working in this repo, build the base service (dependencies, etc. that don't change)
+### Docker Development Setup
+#### If this is your first time working in this repo, build the base service (dependencies, etc. that don't change)
   ``` bash
-  docker-compose build
-  ```
-
-### If this is your first time working in this repo or the Dockerfile has been updated you will need to (re)build your services
-
-- Push to the git repository
-- Set the environment variable for the tag to the git commit
-  ```bash
-  export SOLR_TAG=$(git rev-parse --short HEAD)
-  ```
-& build your image based on the docker-compose file
-  ``` bash
-  docker-compose build
-  ```
-- If appropriate, push the tagged image to the Dockerhub repository
-  ```bash
-  docker-compose push
+  docker build . -f Dockerfile
   ```
 
 ### Starting the app
-- Start the solr service
+- Start the solr service with camerata
   ``` bash
-  docker-compose up
+  cam up solr
+  ```
+
+- To specify the solr version to work with when running with blacklight or management containers - export the SOLR_VERSION variable during the up command as such
+  ``` bash
+  SOLR_VERSION=v1.0.16 cam up blacklight
   ```
 
   - Access the solr instance at `http://localhost:8983`
@@ -40,7 +34,7 @@ Solr for Digital Collections
 Build the image as noted, tag with new version.
 
 ```
-docker tag <whatever image id> yalelibraryit/dc-solr:v1.0.1
+docker tag <image sha> yalelibraryit/dc-solr:v1.0.1
 
 ```
 Push newly tagged image to dockerhub
@@ -49,7 +43,7 @@ Push newly tagged image to dockerhub
 docker push yalelibraryit/dc-solr:v1.0.1
 ```
 
-Tag the release in github, and update the .env in camerata.
+Create tag and the release in github to keep repository current and in line with EC2 instances.
 
 Since Solr is a stateful application, announce deployment in the
 appropriate channels, as deployment will require some down-time.
@@ -57,7 +51,7 @@ appropriate channels, as deployment will require some down-time.
 ### Stopping the app
  - Stop the solr service
  ```bash
- docker-compose down
+ cam stop
  ```
 
  ### Using the solr image in another application
