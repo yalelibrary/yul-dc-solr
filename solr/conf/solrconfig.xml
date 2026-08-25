@@ -129,6 +129,17 @@
      </lst>
   </requestHandler>
 
+  <requestHandler name="iiif_search" class="solr.SearchHandler">
+     <lst name="defaults">
+       <str name="defType">edismax</str>
+       <str name="echoParams">explicit</str>
+       <str name="mm">1</str>
+       <float name="tie">0.01</float>
+       <str name="qf">child_fulltext_tesim</str>
+       <str name="pf">child_fulltext_tesim</str>
+       <str name="facet">false</str>
+     </lst>
+  </requestHandler>
 
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">textSpell</str>
