@@ -1,18 +1,3 @@
-#!/usr/bin/env bash
-#
-# Smoke test for the dc-solr image.
-#
-# Starts a container from the given image, creates a core from the baked-in
-# /opt/config config set, and verifies that the core actually loads and answers
-# queries through the Blacklight request handlers. Config problems (missing
-# modules, bad analyzers, schema errors) only surface at core load time, not at
-# image build time, so this is what stops CI from publishing a broken image.
-#
-# All requests go through `docker exec` because CircleCI's remote Docker host is
-# not reachable from the job on localhost.
-#
-# Usage: ops/smoke-test.sh <image>
-
 set -euo pipefail
 
 IMAGE="${1:?usage: $0 <image>}"

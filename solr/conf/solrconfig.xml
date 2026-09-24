@@ -6,9 +6,6 @@
 
   <luceneMatchVersion>9.12</luceneMatchVersion>
 
-  <!-- Keep the hand-maintained schema.xml authoritative. Without this Solr
-       defaults to the managed schema, renames schema.xml to schema.xml.bak and
-       stops reading edits to it. -->
   <schemaFactory class="ClassicIndexSchemaFactory"/>
 
   <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
@@ -18,9 +15,6 @@
       <str name="dir">${solr.core0.data.dir:}</str>
     </updateLog>
   </updateHandler>
-
-  <!-- The ICU analyzers come from the analysis-extras module, enabled with
-       SOLR_MODULES=analysis-extras in the Dockerfile. -->
 
   <dataDir>${solr.data.dir:}</dataDir>
 
