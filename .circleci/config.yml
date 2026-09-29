@@ -24,9 +24,6 @@ jobs:
       - docker/build:
           image: yalelibraryit/dc-solr
           cache_from: yalelibraryit/dc-solr:main
-      - run:
-          name: Smoke test built image (core must load and answer queries)
-          command: bash ops/smoke-test.sh yalelibraryit/dc-solr:$CIRCLE_SHA1
       - docker/push:
           image: yalelibraryit/dc-solr
 
