@@ -16,6 +16,9 @@
     </updateLog>
   </updateHandler>
 
+  <!-- ICU tokenizer/folding filters used by schema.xml -->
+  <lib dir="${solr.install.dir:..}/modules/analysis-extras/lib/" regex=".*\.jar" />
+
   <dataDir>${solr.data.dir:}</dataDir>
 
   <requestHandler name="search" class="solr.SearchHandler" default="true">
